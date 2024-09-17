@@ -1,0 +1,169 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+  <div class="row">
+    <h1 class="offset-auto">Create Employee</h1>
+    <form
+      action="/employees"
+      method="post"
+      class="col-8 offset-0 form needs-validation" novalidate
+    >
+      <!-- Name -->
+      <div class="mb-3 mt-3 row">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="employee[name]"
+            placeholder="John Doe"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3 row">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="employee[email]"
+            placeholder="john@example.com"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="mb-3 row">
+        <label for="mobile-number" class="col-sm-2 col-form-label"
+          >Mobile No</label
+        >
+        <div class="col-sm-10">
+          <input
+            type="number"
+            class="form-control"
+            id="mobile-number"
+            name="employee[mobilenumber]"
+            placeholder="9145xxxxxx"
+            required
+            minlength="10"
+          />
+        </div>
+      </div>
+
+      <!-- Designation -->
+
+      <div class="mb-3 row">
+        <label for="designation" class="col-sm-2 col-form-label"
+          >Designation</label
+        >
+        <div class="col-sm-10">
+          <select
+            class="form-select"
+            id="designation"
+            name="employee[designation]"
+            required
+          >
+            <option selected>Choose...</option>
+            <option value="HR">HR</option>
+            <option value="Manager">Manager</option>
+            <option value="Sales">Sales</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="mb-3 row">
+        <label for="gender-male" class="col-sm-2 col-form-label">Gender</label>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="employee[gender]"
+              id="gender-male"
+              value="male"
+              required
+            />
+            <label class="form-check-label" for="gender-male"> Male </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="employee[gender]"
+              id="gender-female"
+              value="female"
+            />
+            <label class="form-check-label" for="gender-female"> Female </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Course  -->
+      <div class="mb-3 row">
+        <label for="course-mca" class="col-sm-2 col-form-label">Course</label>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="MCA"
+              id="course-mca"
+              name="employee[course]"  
+            />
+            <label class="form-check-label" for="course-mca"> MCA </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="BSC"
+              id="course-bsc"
+              name="employee[course]"
+            />
+            <label class="form-check-label" for="course-bsc"> BSC </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="BCA"
+              id="course-bca"
+              name="employee[course]"
+            />
+            <label class="form-check-label" for="course-bca"> BCA </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Upload  -->
+
+      <div class="mb-3 row">
+        <label for="image" class="col-sm-2 col-form-label">Picture Link</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            id="image"
+            name="employee[image]"
+            placeholder="image url"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="col-auto mb-3">
+        <button type="submit" class="btn btn-primary mb-3">
+          Create Employee
+        </button>
+      </div>
+    </form>
+  </div>
+</body>

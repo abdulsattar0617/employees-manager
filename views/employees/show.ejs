@@ -1,0 +1,166 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+  <div class="row">
+    <h1 class="offset-auto">Employee Details</h1>
+
+    <form action="#" class="col-8 offset-0 form needs-validation">
+      <!-- Employee ID -->
+      <div class="mb-3 mt-3 row">
+        <label for="employee-id" class="col-sm-2 col-form-label"
+          >Employee ID</label
+        >
+        <div class="col-sm-10">
+          <input
+            type="text"
+            readonly
+            class="form-control"
+            placeholder="John Doe"
+            required
+            value="<%= employee._id %>"
+          />
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="mb-3 mt-3 row">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            readonly
+            class="form-control"
+            id="name"
+            placeholder="John Doe"
+            required
+            value="<%= employee.name %>"
+          />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3 row">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            readonly
+            placeholder="john@example.com"
+            value="<%= employee.email %>"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="mb-3 row">
+        <label for="mobile-number" class="col-sm-2 col-form-label"
+          >Mobile No</label
+        >
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            readonly
+            id="mobile-number"
+            placeholder="9145xxxxxx"
+            value="<%= employee.mobilenumber %>"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Designation -->
+
+      <div class="mb-3 row">
+        <label for="designation" class="col-sm-2 col-form-label"
+          >Designation</label
+        >
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            readonly
+            id="designation"
+            value="<%= employee.designation %>"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="mb-3 row">
+        <label for="gender-male" class="col-sm-2 col-form-label">Gender</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            readonly
+            id="gender-male"
+            value="<%= employee.gender.toUpperCase() %>"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Course  -->
+      <div class="mb-3 row">
+        <label for="course-mca" class="col-sm-2 col-form-label">Course</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            readonly
+            id="course-mca"
+            value="<%= employee.course %>"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Image Upload  -->
+
+      <div class="mb-3 row">
+        <label for="image" class="col-sm-2 col-form-label">Picture Link</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            id="image"
+            name="employee[image]"
+            placeholder="image url"
+            value="<%= employee.image %>"
+            readonly
+            required
+          />
+        </div>
+      </div>
+
+      <div>
+        <a class="btn btn-dark" href="/employees/<%= employee._id %>/edit"
+          >Edit</a
+        >
+        <a
+          class="btn btn-danger mx-5"
+          href="/employees/<%= employee._id %>/delete"
+          >Delete</a
+        >
+      </div>
+    </form>
+
+    <div class="col-md-2">
+      <!-- Image URL --><br />
+      <label for="" class="col-form-label">Employee Picture</label>
+      <br />
+      <!-- <h4>Employee Image</h4> -->
+      <img
+        src="<%= employee.image %>"
+        alt="Invalid image url"
+        width="100%"
+        id="employee-image"
+      />
+      <br />
+    </div>
+  </div>
+</body>

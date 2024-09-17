@@ -1,0 +1,70 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+  <% const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug",
+  "Sep", "Oct", "Nov", "Dec"]; %>
+  <h1>Employee List</h1>
+  <div class="row mt-1 col-md-6 offset-md-6">
+    <span class="col offset-auto"> Total Count: <%= employees.length %></span>
+    <a href="/employees/new" class="col mb-3 btn btn-primary"
+      >Create Employee</a
+    >
+  </div>
+
+  <div class="row overflow-auto">
+    <table class="table table-bordered table-hover table-sm table-responsive">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Unique Id</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mobile No</th>
+          <th scope="col">Designation</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Course</th>
+          <th scope="col">Create date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% for(employee of employees) { %>
+        <tr>
+          <td>
+            <a href="/employees/<%= employee._id %>"> _ _ <%= employee._id.toString().slice(-4) %></a>
+          </td>
+          <td>
+            <img
+              src="<%= employee.image %>"
+              alt="Employee Image"
+              width="100px"
+            />
+          </td>
+          <td><%= employee.name %></td>
+          <td><%= employee.email %></td>
+          <td><%= employee.mobilenumber %></td>
+          <td><%= employee.designation %></td>
+          <td><%= employee.gender.toUpperCase() %></td>
+          <td><%= employee.course %></td>
+          <td>
+            <%= employee.createdDate.getDate() %>-<%=
+            months[employee.createdDate.getMonth()] %>-<%=
+            employee.createdDate.getFullYear() %>
+          </td>
+          <td>
+            <a href="/employees/<%= employee._id %>/edit">Edit</a>
+            &nbsp;
+            <a href="/employees/<%= employee._id %>/delete">Delete</a>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+</body>

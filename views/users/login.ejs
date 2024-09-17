@@ -1,0 +1,43 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+  <div class="row">
+    <div class="col-6 offset-3 mt-3">
+      <h1>Login</h1>
+    </div>
+    <div class="col-md-6 offset-md-3 mt-1 mb-3">
+      <form action="/login" method="POST" class="needs-validation">
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            name="username"
+            class="form-control"
+            required
+            autofocus
+          />
+          <div class="invalid-feedback">Please enter username.</div>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+    
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            required
+          />
+        </div>
+ 
+
+        <button type="submit" class="btn btn-success">Register</button>
+      </form>
+      <div class="mt-3">
+        <p><b>Don't have an account?</b> <a href="/signup">Create New</a></p>
+      </div>
+    </div>
+  </div>
+</body>
