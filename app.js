@@ -14,6 +14,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./Models/user");
 const userRouter = require("./routes/user");
+const { upload } = require("./middleware");
+const dashboardRouter = require('./routes/dashboard');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -67,6 +69,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use('/dashboard', dashboardRouter);
 app.use("/employees", employeesRouter);
 app.use("/", userRouter);
 
@@ -79,6 +82,7 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
   let { status = 500, message = "Something broke!" } = err;
 
+  // res.send(err);
   res.status(status).render("employees/error.ejs", { message });
 });
 

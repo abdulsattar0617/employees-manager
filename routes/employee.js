@@ -4,7 +4,9 @@ const wrapAsync = require("../utils/wrapAsync");
 const Employee = require("../Models/employee");
 const { employeeSchema } = require("../schema");
 const ExpressError = require("../utils/ExpressError");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, upload } = require("../middleware");
+const path = require("path");
+const fs = require("fs");
 
 // Employee Validator
 const validateEmployee = (req, res, next) => {
@@ -58,32 +60,58 @@ router.get(
 );
 
 // PATCH : Update employee
+// router.patch(
+//   "/:id",
+//   wrapAsync(async (req, res) => {
+//     let { id } = req.params;
+
+//     let updatedEmp = await Employee.findByIdAndUpdate(id, req.body.employee, {
+//       new: true,
+//       runValidators: true,
+//     });
+
+//     req.flash("success", "Employee updated!");
+//     async (req, res) => {
+//       let { id } = req.params;
+
+//       let employee = await Employee.findById(id);
+
+//       if (!employee) {
+//         req.flash("error", "Employee you are looking for does not exist!");
+//         res.redirect("/employees");
+//       }
+
+//       res.render("employees/delete.ejs", { employee });
+//     };
+//     console.dir(updatedEmp);
+
+//     res.redirect(`/employees/${id}`);
+//   })
+// );
+
 router.patch(
   "/:id",
+  validateEmployee, 
+  upload.single("employee[image]"),
   wrapAsync(async (req, res) => {
-    let { id } = req.params;
+    // console.log(req.file);
 
-    let updatedEmp = await Employee.findByIdAndUpdate(id, req.body.employee, {
-      new: true,
-      runValidators: true,
-    });
+    let { employee } = req.body;
 
-    req.flash("success", "Employee updated!");
-    async (req, res) => {
-      let { id } = req.params;
-
-      let employee = await Employee.findById(id);
-
-      if (!employee) {
-        req.flash("error", "Employee you are looking for does not exist!");
-        res.redirect("/employees");
-      }
-
-      res.render("employees/delete.ejs", { employee });
+    let newEmployee = { ...employee };
+    newEmployee._id = undefined;
+    newEmployee.image = {
+      data: fs.readFileSync(
+        path.join(__dirname + "/uploads/" + req.file.filename)
+      ),
+      contentType: req.file.mimetype,
     };
-    console.dir(updatedEmp);
 
-    res.redirect(`/employees/${id}`);
+    await Employee.findByIdAndUpdate(req.params.id, newEmployee);
+
+    req.flash("success", "Employee Updated!");
+
+    res.redirect("/employees");
   })
 );
 
@@ -106,33 +134,71 @@ router.get(
 );
 
 // POST : Create New Emp
+// router.post(
+//   "/",
+//   // upload.single("employee[image]"),
+//   validateEmployee,
+//   wrapAsync(async (req, res) => {
+//     try {
+//       let { employee } = req.body;
+
+//       console.dir(employee);
+
+//       let newEmployee = new Employee(employee);
+
+//       let savedEmp = await newEmployee.save();
+
+//       req.flash("success", "New employee created!");
+
+//       console.dir(savedEmp);
+
+//       res.redirect("/employees");
+//     } catch (err) {
+//       req.flash("error", err.message);
+//       res.redirect("/employee/new");
+//     }
+//   })
+// );
+
+// GET : Create New Emp
 router.post(
   "/",
-  isLoggedIn,
-  validateEmployee,
-  wrapAsync(async (req, res) => {
+  validateEmployee, 
+  upload.single("employee[image]"),
+  wrapAsync(async (req, res, next) => {
     try {
       let { employee } = req.body;
 
-      console.dir(employee);
+      var newEmployee = { ...employee };
 
-      let newEmployee = new Employee(employee);
+      newEmployee.image = {
+        data: fs.readFileSync(
+          path.join(__dirname + "/uploads/" + req.file.filename)
+        ),
+        contentType: req.file.mimetype,
+      };
 
-      let savedEmp = await newEmployee.save();
+      newEmployee = new Employee(newEmployee);
 
-      req.flash("success", "New employee created!");
-
-      console.dir(savedEmp);
-
+      await newEmployee.save();
+      req.flash("success", "New Employee Created!");
       res.redirect("/employees");
-    } catch (err) {
+    } catch (errors) {
+      
+      
+      console.log(errors.message); 
+
+      let errMsg = ''; 
+      for (err in errors) {
+        
+      }
+
       req.flash("error", err.message);
-      res.redirect("/employee/new");
+      res.redirect("/employees/new");
     }
   })
 );
 
-// GET : Create New Emp
 router.get("/new", (req, res) => {
   res.render("employees/new.ejs");
 });

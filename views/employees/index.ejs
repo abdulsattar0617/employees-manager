@@ -31,18 +31,23 @@
         <% for(employee of employees) { %>
         <tr>
           <td>
-            <a href="/employees/<%= employee._id %>"> _ _ <%= employee._id.toString().slice(-4) %></a>
+            <a href="/employees/<%= employee._id %>">
+              _ _ <%= employee._id.toString().slice(-4) %></a
+            >
           </td>
           <td>
+            <% if (employee.image.data && employee.image.contentType) { %>
             <img
-              src="<%= employee.image %>"
+              src="data:image/<%=employee.image.contentType%>;base64,
+            <%=employee.image.data.toString('base64')%>"
               alt="Employee Image"
-              width="100px"
+              width="50px"
             />
+            <% } else { %> <% } %>
           </td>
           <td><%= employee.name %></td>
           <td><%= employee.email %></td>
-          <td><%= employee.mobilenumber %></td>
+          <td><%= employee.mobile %></td> 
           <td><%= employee.designation %></td>
           <td><%= employee.gender.toUpperCase() %></td>
           <td><%= employee.course %></td>

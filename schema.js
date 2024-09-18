@@ -6,14 +6,16 @@ module.exports.employeeSchema = joi.object({
     .object({
       name: joi.string().required(),
       email: joi.string().email().required(),
-      mobilenumber: joi.string().min(10).max(15).required(),
+      mobile: joi.string().min(10).max(15).required(),
       designation: joi.string().required(),
       gender: joi.string().required(),
-      image: joi.string().required(),
-      course: joi.array(),
+      image: joi
+        .object({
+          contentType: joi.string().required(),
+          data: joi.string().required(),
+        })
+        .required(),
+      course: joi.allow("BCA", "BSC", "MCA"),
     })
     .required(),
 });
-
-
- 

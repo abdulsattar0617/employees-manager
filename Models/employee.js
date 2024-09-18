@@ -1,3 +1,4 @@
+const { string } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -11,7 +12,7 @@ const employeeSchema = new Schema({
     type: String,
     required: true,
   },
-  mobilenumber: {
+  mobile: {
     type: String,
     required: true,
     minLength: 10,
@@ -27,11 +28,11 @@ const employeeSchema = new Schema({
   },
   course: {
     type: [String],
-    default: []
+    default: [],
   },
   image: {
-    type: String,
-    required: true,
+    data: Buffer,
+    contentType: String,
   },
   createdDate: {
     type: Date,
